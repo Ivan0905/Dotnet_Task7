@@ -45,21 +45,25 @@
 // i = 4, j = 2 -> такого числа в массиве нет
 // i = 1, j = 2 -> 2
 
-Console.WriteLine("Введите номер строки");
-int row = int.Parse(Console.ReadLine()!);
-Console.WriteLine("Введите номер столбца");
-int column = int.Parse(Console.ReadLine()!);
-int [,] array = GetArray(4,4,0,5);
-PrintArr(array);
-text(array,row,column);
-void text (int[,] arr, int r, int c){
+// Console.WriteLine("Введите номер строки");
+// int row = int.Parse(Console.ReadLine()!);
+// Console.WriteLine("Введите номер столбца");
+// int column = int.Parse(Console.ReadLine()!);
+// int [,] array = GetArray(4,4,0,5);
+// PrintArr(array);
+// text(array,row,column);
 
-if(r>=0&&r<=arr.GetLength(0)-1&&c>=0&&c<=arr.GetLength(1)-1){
-    Console.WriteLine(arr[r,c]);
-}
-else{
-    Console.WriteLine("Такого элемента нет");
-}
+void text(int[,] arr, int r, int c)
+{
+
+    if (r >= 0 && r <= arr.GetLength(0) - 1 && c >= 0 && c <= arr.GetLength(1) - 1)
+    {
+        Console.WriteLine(arr[r, c]);
+    }
+    else
+    {
+        Console.WriteLine("Такого элемента нет");
+    }
 }
 
 
@@ -73,7 +77,7 @@ int[,] GetArray(int n, int m, int min, int max)
         for (int j = 0; j < m; j++)
         {
 
-            arr[i, j] = new Random().Next(min,max+1);
+            arr[i, j] = new Random().Next(min, max + 1);
         }
     }
     return arr;
@@ -90,4 +94,32 @@ void PrintArr(int[,] arr)
         }
         Console.WriteLine();
     }
+}
+
+// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+
+int[,] array = GetArray(5, 4, 0, 5);
+PrintArr(array);
+Aver(array);
+
+void Aver(int[,] arr)
+{
+    double[] arr1 = new double[arr.GetLength(1)];
+
+    for (int i = 0; i < arr.GetLength(1); i++)
+    {
+        double a = 0;
+        for (int j = 0; j < arr.GetLength(0); j++)
+        {
+            a += arr[j, i];
+        }
+        arr1[i] = a / arr.GetLength(0);
+    }
+    Console.WriteLine("Среднее арифметическое каждого столбца: " + String.Join("; ", arr1));
+
 }
