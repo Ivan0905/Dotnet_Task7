@@ -131,12 +131,12 @@ void Aver(int[,] arr)
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int xRow = 2;
-int yRow = 2;
-int zColumn = 2;
-int[] larray = new int[xRow * yRow * zColumn];  //Задаем одномерный массив
-int[,,] myArray = GetArrayTd(xRow, yRow, zColumn, LineArray(xRow, yRow, zColumn));
-PrintArrTd(myArray);
+// int xRow = 2;
+// int yRow = 2;
+// int zColumn = 2;
+// int[] larray = new int[xRow * yRow * zColumn];  //Задаем одномерный массив
+// int[,,] myArray = GetArrayTd(xRow, yRow, zColumn, LineArray(xRow, yRow, zColumn));
+// PrintArrTd(myArray);
 
 int[,,] GetArrayTd(int n, int m, int k, int[] arr1)
 {
@@ -191,10 +191,71 @@ void PrintArrTd(int[,,] arr)
         {
             for (int k = 0; k < arr.GetLength(2); k++)
             {
-                Console.Write($"{arr[i, j, k]} ({i},{j},{k})");
+                Console.Write($" {arr[i, j, k]} ({i},{j},{k})");
             }
             Console.WriteLine();
         }
 
+    }
+}
+
+// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+// Например, на выходе получается вот такой массив:
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+int a = 4;
+int b = 4;
+int[,] array = new int[a, b];
+FillImage(0, 0, 0, 0);
+
+PrintImage(array);
+
+void FillImage(int row, int col, int count, int index)
+{
+
+    for (int i = 0; i < (array.GetLength(1) / (index + 1)); i++)        // Заполнили 1 строку 
+    {
+        array[row, col] = count;
+        col++;
+        count++;
+    }
+    col--;
+    for (int j = 0; j < array.GetLength(0) / (index + 1) - index % 1 - 1; j++)        // Заполнили последний столбец 4/(1+1)-1-1=0
+    {
+        row++;
+        array[row, col] = count;
+        count++;
+    }
+    for (int k = col - 1 - index; k >= 0; k--)        // Заполнили нижнюю строку
+    {
+        array[row, col - 1] = count;
+        col--;
+        count++;
+    }
+    for (int z = row - 1 - index; z > 0; z--)        // Заполнили первый столбец
+    {
+        array[row - 1, col] = count;
+        row--;
+        count++;
+    }
+    row = 0;
+    col = 0;
+    if (index == 0)
+    {
+        FillImage(row + 1, col + 1, count++, index + 1);
+    }
+}
+void PrintImage(int[,] image)
+{
+    for (int i = 0; i < image.GetLength(0); i++)
+    {
+        for (int j = 0; j < image.GetLength(1); j++)
+        {
+            Console.Write("{0,3}", image[i, j]);
+        }
+        Console.WriteLine();
     }
 }
