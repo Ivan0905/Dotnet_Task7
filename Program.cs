@@ -103,9 +103,9 @@ void PrintArr(int[,] arr)
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
-int[,] array = GetArray(5, 4, 0, 5);
-PrintArr(array);
-Aver(array);
+// int[,] array = GetArray(5, 4, 0, 5);
+// PrintArr(array);
+// Aver(array);
 
 void Aver(int[,] arr)
 {
@@ -122,4 +122,79 @@ void Aver(int[,] arr)
     }
     Console.WriteLine("Среднее арифметическое каждого столбца: " + String.Join("; ", arr1));
 
+}
+
+// Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+// Массив размером 2 x 2 x 2
+// 66(0,0,0) 25(0,1,0)
+// 34(1,0,0) 41(1,1,0)
+// 27(0,0,1) 90(0,1,1)
+// 26(1,0,1) 55(1,1,1)
+
+int xRow = 2;
+int yRow = 2;
+int zColumn = 2;
+int[] larray = new int[xRow * yRow * zColumn];
+int[,,] myArray = GetArrayTd(2, 2, 2, LineArray(xRow, yRow, zColumn));
+PrintArrTd(myArray);
+
+int[,,] GetArrayTd(int n, int m, int k, int[] arr1)
+{
+    int[,,] arr = new int[n, m, k];
+    int count = 0;
+    for (int x = 0; x < n; x++)
+    {
+
+        for (int y = 0; y < m; y++)
+        {
+            for (int z = 0; z < k; z++)
+            {
+
+                arr[x, y, z] = arr1[count];
+                count++;
+            }
+        }
+
+    }
+    return arr;
+}
+
+int[] LineArray(int StrX, int StrY, int StrZ)
+{
+    Random rnd = new Random();
+    int[] a = new int[StrX * StrY * StrZ];
+    a[0] = rnd.Next(10, 100);
+    for (int i = 1; i < a.Length;)
+    {
+        int num = rnd.Next(10, 100); // генерируем элемент
+        int j;
+        // поиск совпадения среди заполненных элементов
+        for (j = 0; j < i; j++)
+        {
+            if (num == a[j])
+                break; // совпадение найдено, элемент не подходит
+        }
+        if (j == i)
+        { // совпадение не найдено
+            a[i] = num; // сохраняем элемент
+            i++; // переходим к следующему элементу
+        }
+    }
+    return a;
+}
+
+void PrintArrTd(int[,,] arr)
+{
+    for (int i = 0; i < arr.GetLength(0); i++)
+    {
+        for (int j = 0; j < arr.GetLength(1); j++)
+        {
+            for (int k = 0; k < arr.GetLength(2); k++)
+            {
+                Console.Write($"{arr[i, j, k]} ({i},{j},{k})");
+            }
+            Console.WriteLine();
+        }
+
+    }
 }
