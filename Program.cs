@@ -134,8 +134,8 @@ void Aver(int[,] arr)
 int xRow = 2;
 int yRow = 2;
 int zColumn = 2;
-int[] larray = new int[xRow * yRow * zColumn];
-int[,,] myArray = GetArrayTd(2, 2, 2, LineArray(xRow, yRow, zColumn));
+int[] larray = new int[xRow * yRow * zColumn];  //Задаем одномерный массив
+int[,,] myArray = GetArrayTd(xRow, yRow, zColumn, LineArray(xRow, yRow, zColumn));
 PrintArrTd(myArray);
 
 int[,,] GetArrayTd(int n, int m, int k, int[] arr1)
@@ -159,7 +159,7 @@ int[,,] GetArrayTd(int n, int m, int k, int[] arr1)
     return arr;
 }
 
-int[] LineArray(int StrX, int StrY, int StrZ)
+int[] LineArray(int StrX, int StrY, int StrZ) // Метод линейного создания массива  с неповторяющимися рандомными числами
 {
     Random rnd = new Random();
     int[] a = new int[StrX * StrY * StrZ];
